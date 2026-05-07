@@ -1,0 +1,39 @@
+name: Bug Report
+description: Report a problem with the action
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the issue
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow YAML
+      description: The relevant step from your workflow (redact secrets)
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Action logs
+      description: Relevant log output (redact any sensitive info)
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: Action version
+      placeholder: "e.g. v1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: runner
+    attributes:
+      label: Runner OS
+      placeholder: "e.g. ubuntu-latest, macos-latest"
+    validations:
+      required: true

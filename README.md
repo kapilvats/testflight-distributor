@@ -80,6 +80,18 @@ Either `app-id` or `bundle-id` must be provided.
 - **First-time external distribution**: Apple requires a beta app review for the first build of a new version distributed to external testers. This review is handled by Apple and may take up to 24 hours.
 - This action uses the App Store Connect API v1 with JWT (ES256) authentication. No external dependencies beyond `@actions/core` and `@actions/http-client`.
 
+## Versioning
+
+This action follows [semantic versioning](https://semver.org/). The `v1` tag always points to the latest `v1.x.x` release.
+
+- **Production**: pin to a major version tag — `kapilvats/testflight-distributor@v1`
+- **Exact version**: pin to a specific release — `kapilvats/testflight-distributor@v1.0.0`
+- **Latest (not recommended)**: `kapilvats/testflight-distributor@main`
+
+## Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, guidelines, and how to submit a pull request.
+
 ## License
 
 MIT

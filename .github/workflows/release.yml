@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+      - name: Verify dist/ is up to date
+        run: |
+          if [ -n "$(git diff --name-only dist/)" ]; then
+            echo "::error::dist/ is out of date. Run 'npm run build' and commit before releasing."
+            exit 1
+          fi
+
+      - name: Update major version tag
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          MAJOR=$(echo "$TAG" | grep -oE '^v[0-9]+')
+          git tag -f "$MAJOR" "$TAG"
+          git push origin "$MAJOR" --force
