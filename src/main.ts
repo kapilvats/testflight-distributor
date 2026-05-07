@@ -12,6 +12,7 @@ async function run(): Promise<void> {
     const buildNumber = core.getInput('build-number', {required: true})
     const appVersion = core.getInput('app-version')
     const groupName = core.getInput('group-name', {required: true})
+    const notifyTesters = core.getBooleanInput('notify-testers')
     const waitForBuild = core.getBooleanInput('wait-for-processing')
     const maxWaitMinutes = parseInt(core.getInput('max-wait-minutes'), 10) || 60
 
@@ -59,6 +60,13 @@ async function run(): Promise<void> {
     core.info(`Adding build ${build.id} to beta group "${groupName}"...`)
     await client.addBuildToGroup(group.id, build.id)
     core.info('Build successfully distributed to beta group!')
+
+    // Notify testers if requested
+    if (notifyTesters) {
+      core.info('Sending notification to beta testers...')
+      await client.notifyBetaTesters(build.id)
+      core.info('Testers notified.')
+    }
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message)

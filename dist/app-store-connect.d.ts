@@ -29,4 +29,5 @@ export declare class AppStoreConnectClient {
     getBuild(buildId: string): Promise<Build>;
     findBetaGroup(appId: string, groupName: string): Promise<BetaGroup>;
     addBuildToGroup(groupId: string, buildId: string): Promise<void>;
+    notifyBetaTesters(buildId: string): Promise<void>;
 }

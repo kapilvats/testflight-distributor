@@ -17,7 +17,7 @@ Distribute an already-uploaded TestFlight build to a specific beta group for ext
     wait-for-processing: 'true'
 
 - name: Distribute to TestFlight Group
-  uses: your-org/distribute-testflight@v1
+  uses: kapilvats/testflight-distributor@v1
   with:
     issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
     api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
@@ -31,7 +31,7 @@ Distribute an already-uploaded TestFlight build to a specific beta group for ext
 
 ```yaml
 - name: Distribute to TestFlight Group
-  uses: your-org/distribute-testflight@v1
+  uses: kapilvats/testflight-distributor@v1
   with:
     issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
     api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}

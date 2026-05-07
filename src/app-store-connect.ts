@@ -170,6 +170,23 @@ export class AppStoreConnectClient {
       }
     )
   }
+
+  async notifyBetaTesters(buildId: string): Promise<void> {
+    await this.request(
+      '/v1/buildBetaNotifications',
+      'POST',
+      {
+        data: {
+          type: 'buildBetaNotifications',
+          relationships: {
+            build: {
+              data: {type: 'builds', id: buildId},
+            },
+          },
+        },
+      }
+    )
+  }
 }
 
 function base64url(input: string | Buffer): string {
