@@ -1,0 +1,57 @@
+name: 'Distribute TestFlight Build'
+description: 'Distribute an already-uploaded TestFlight build to a specific beta group for external testing via App Store Connect API'
+author: 'kapil'
+
+branding:
+  icon: 'send'
+  color: 'blue'
+
+inputs:
+  api-key-id:
+    description: 'App Store Connect API Key ID'
+    required: true
+  issuer-id:
+    description: 'App Store Connect Issuer ID'
+    required: true
+  api-private-key:
+    description: 'The .p8 private key contents (PKCS8 format)'
+    required: true
+  app-id:
+    description: 'App Store Connect App ID. If not provided, resolved from bundle-id'
+    required: false
+  bundle-id:
+    description: 'App bundle identifier (e.g. com.example.app). Used to look up app-id if not provided'
+    required: false
+  build-number:
+    description: 'The build number (CFBundleVersion) to distribute'
+    required: true
+  app-version:
+    description: 'The app version (CFBundleShortVersionString) to filter builds'
+    required: false
+  group-name:
+    description: 'Name of the TestFlight beta group to distribute to'
+    required: true
+  notify-testers:
+    description: 'Whether to notify external testers'
+    required: false
+    default: 'true'
+  wait-for-processing:
+    description: 'Wait for build processing before distributing'
+    required: false
+    default: 'false'
+  max-wait-minutes:
+    description: 'Maximum minutes to wait for processing (only used when wait-for-processing is true)'
+    required: false
+    default: '60'
+
+outputs:
+  app-id:
+    description: 'The resolved App Store Connect App ID'
+  build-id:
+    description: 'The App Store Connect Build ID'
+  group-id:
+    description: 'The Beta Group ID the build was distributed to'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
